@@ -29,4 +29,13 @@ export class EventService {
     );
   }
 
+  create(event: Event): Observable<Event> {
+    return this.http.post<Event>(`${this.eventsUrl}`, event);
+  }
+
+  remove(id: number):Observable<Event> {
+    return this.http.delete<Event>(`${this.eventsUrl}/${id}`);
+  }
+
+
 }

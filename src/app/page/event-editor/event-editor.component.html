@@ -1,28 +1,42 @@
 <div class="row">
   <div *ngIf="(event$ | async) as event" class="col-6 offset-3">
     <form #eventForm="ngForm" (ngSubmit)="onUpdate(eventForm, event)">
+      <input type="hidden" name="id" [(ngModel)]="event.id">
       <div class="form-group">
-        <label for="">Name</label>
-        <input name="name" [(ngModel)]="event.name" type="text"
-          class="form-control" pattern=".{8,}" required>
+        <label for="id-name">Name</label>
+        <input id="id-name" name="name" [(ngModel)]="event.name" type="text"
+          class="form-control" pattern=".{8,25}" required>
         <div [hidden]="eventForm.controls.name?.valid" class="error-message">
-          The name of the event must be...
+          The name of the event must be 8-25 character!
         </div>
       </div>
       <div class="form-group">
-        <label for="">Date</label>
-        <input name="date" [(ngModel)]="event.date" type="text"
-          class="form-control">
+        <label for="id-date">Date</label>
+        <input id="id-date" name="date" [(ngModel)]="event.date" type="text"
+          class="form-control" required
+          pattern="^\d?\d/\d?\d/\d{4}$">
+          <div [hidden]="eventForm.controls.date?.valid" class="error-message">
+            The date of the event must be '01/01/1970' format!
+          </div>
       </div>
       <div class="form-group">
-        <label for="">Time</label>
-        <input name="time" [(ngModel)]="event.time" type="text" class="form-control">
+        <label for="id-time">Time</label>
+        <input id="id-time" name="time" [(ngModel)]="event.time" type="text" class="form-control"
+        pattern="^\d?\d(:\d\d)? ?(am|pm|AM|PM)$"
+        required>
+        <div [hidden]="eventForm.controls.time?.valid" class="error-message">
+          The time of the event must be '00am' or '00pm' or '00:00am' format!
+        </div>
       </div>
       <div class="form-group">
-        <label for="">Location</label>
-        <input name="location" [(ngModel)]="event.location" type="text" class="form-control">
+        <label for="id-location">Location</label>
+        <input id="id-location" name="location" [(ngModel)]="event.location" type="text" class="form-control"
+        pattern="^[\dA-ZÍŰÁÉÚŐÓÜÖ].{4,24}$"
+        required>
       </div>
-
+      <div [hidden]="eventForm.controls.location?.valid" class="error-message">
+        The Location of the event must be 4-25 character, begins with capital letter!
+      </div>
       <button type="submit" class="btn btn-primary btn-block btn-lg">
         <i class="fa fa-save"></i>
       </button>

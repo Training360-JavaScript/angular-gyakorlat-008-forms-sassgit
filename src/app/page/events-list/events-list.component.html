@@ -8,6 +8,8 @@
     </div>
   </div>
 
+  <button class="btn btn-block btn-success" (click)="onCreateNew()" >Create new</button>
+
   <table class="table">
     <thead>
       <tr>
@@ -28,6 +30,9 @@
           <div class="btn-group">
             <button [routerLink]="['event/' + event.id]" class="btn btn-info">
               <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-danger" (click)="onDelete(event)">
+              <i class="fa fa-remove"></i>
             </button>
 
           </div>

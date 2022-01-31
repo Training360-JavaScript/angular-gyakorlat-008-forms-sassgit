@@ -18,6 +18,18 @@ export class EventsListComponent implements OnInit {
     private router: Router,
   ) { }
 
+  onCreateNew(): void {
+    this.router.navigate(['/', 'event', '0']);
+  }
+
+  onDelete(event: Event): void {
+    console.log(event);
+    this.eventService.remove(event).subscribe(event => 
+      this.eventList$ = this.eventService.getAll(),
+      console.error
+      );
+  }
+  
   ngOnInit(): void {}
 
 }
